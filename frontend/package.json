@@ -9,9 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "kill-5173": "powershell -Command \"Get-NetTCPConnection -LocalPort 5173 | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }\""
-
   },
   "dependencies": {
+    "axios": "^1.13.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6"

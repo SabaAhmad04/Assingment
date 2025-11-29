@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../context/context.jsx";
+import { useAuth } from "../context/context";
 import { useNavigate } from "react-router-dom";
-
 
 const API_BASE = "http://localhost:5000";
 
 export default function Dashboard() {
   const { token, logout } = useAuth();
+  const navigate = useNavigate();
 
   const [bases, setBases] = useState([]);
   const [loadingBases, setLoadingBases] = useState(false);
@@ -21,7 +21,7 @@ export default function Dashboard() {
   const [loadingFields, setLoadingFields] = useState(false);
 
   const [formTitle, setFormTitle] = useState("Assignment Demo Form");
-  const [selectedQuestions, setSelectedQuestions] = useState({});
+  const [selectedQuestions, setSelectedQuestions] = useState({}); 
   const [creatingForm, setCreatingForm] = useState(false);
   const [createdFormId, setCreatedFormId] = useState("");
 
@@ -175,8 +175,10 @@ export default function Dashboard() {
       );
 
       console.log("Create form response:", res.data);
-      setCreatedFormId(res.data.formId);
-      alert("Form created successfully!");
+      const newFormId = res.data.formId;
+      setCreatedFormId(newFormId);
+
+      navigate(`/form/${newFormId}`);
     } catch (err) {
       console.error("Error creating form:", err.response?.data || err.message);
       alert("Failed to create form. Check console.");
@@ -320,9 +322,7 @@ export default function Dashboard() {
 
           {createdFormId && (
             <p style={{ marginTop: "0.75rem" }}>
-               Form created! ID: <code>{createdFormId}</code>
-              <br />
-              (Use this ID later in the viewer: <code>/form/{createdFormId}</code>)
+              Form created! ID: <code>{createdFormId}</code>
             </p>
           )}
         </section>
