@@ -8,7 +8,7 @@ export default function App() {
   const handleLogin = async () => {
     try {
       console.log("Login button clicked");
-      const res = await fetch("http://localhost:5000/auth/dev-token");
+      const res = await fetch("https://assingment-4.onrender.com/auth/dev-token");
       const data = await res.json();
       console.log("Dev token response:", data);
 
